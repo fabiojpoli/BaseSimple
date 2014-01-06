@@ -1,0 +1,52 @@
+/* Ux Alert */
+.alert-box {
+    left: 32%;
+    position: absolute;
+    top: 2px;
+    z-index: 20000;
+}
+
+.alert-box table {
+    margin-top: 1px;
+    padding: 2px 3px;
+    border-radius: 4px;
+    width: 500px;
+    -moz-border-radius: 4px;
+}
+
+.alert-box h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0px;
+    width: 450px;
+}
+
+.alert-box p {
+    font-size: 13px;
+    margin: 0;
+}
+
+.alert-box .alert-success {
+    background: none repeat scroll 0 0 #CDEAC8;
+    border: 1px solid #59B53A;
+}
+
+.alert-box .alert-warning {
+    background: none repeat scroll 0 0 #FBFFAC;
+    border: 1px solid #C4B700;
+}
+
+.alert-box .alert-error {
+    background: none repeat scroll 0 0 #FBB198;
+    border: 1px solid #DC4E3D;
+}
+
+.alert-box .alert-information {
+    background: none repeat scroll 0 0 #DDEEFA;
+    border: 1px solid #8AAFC5;
+}
+
+.alert-box .alert-notification {
+    background: none repeat scroll 0 0 #F6F7FA;
+    border: 1px solid rgb(163, 160, 160);
+}
