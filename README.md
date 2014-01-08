@@ -20,3 +20,5 @@ Features CRUD:
 - Applying usage ux;
 - Applying use of sass;
 - Accompanies Ext.ux.Alert ux;
+
+Before running the project, has Sencha Cmd installed, navigate the terminal to the project folder and run this command: sencha app build
