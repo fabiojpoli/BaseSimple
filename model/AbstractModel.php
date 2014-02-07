@@ -18,9 +18,15 @@ class AbstractModel {
 		}
 	}
 	
-	public function select() {
-		$sql = "SELECT * FROM $this->table";
+	public function select($start = 0, $limit = 25) {
+		$sql = "SELECT * FROM $this->table LIMIT $start, $limit";
 		return $this->con->execute($sql); 
+	}
+
+	public function count() {
+		$sql = "SELECT COUNT(*) total FROM $this->table";
+		$result = $this->con->execute($sql);
+		return (int) $result[0]['total'];
 	}
 	
 	public function insert() {

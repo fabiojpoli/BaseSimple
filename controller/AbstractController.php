@@ -12,10 +12,12 @@ class AbstractController {
 	
 	public function read(){
 		$obj = $this->objModel;
-		$records = $obj->select();
+		$records = $obj->select($_GET['start'], $_GET['limit']);
+		$total = $obj->count();
 		
 		echo json_encode(array(
-			"rows" => $records
+			"rows" => $records,
+			"total" => $total
 		));
 	}
 	

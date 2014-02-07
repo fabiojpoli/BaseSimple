@@ -7,6 +7,7 @@
 
 Ext.define('Ext.ux.grid.Panel', {
 	extend: 'Ext.grid.Panel',
+	requires: ['Ext.toolbar.Paging'],
     border: false,
     tbar  : [{
     	text  : 'New',
@@ -20,6 +21,13 @@ Ext.define('Ext.ux.grid.Panel', {
 	initComponent: function() {
 		var me = this;
 		
+		me.dockedItems = {
+			xtype: 'pagingtoolbar',
+			dock: 'bottom',
+			store: me.store,
+			displayInfo: true
+		};
+
 		me.on('render', me.applyDefaultColumns, me);
         me.getSelectionModel().on('selectionchange', me.onSelectionChange, me);
 		me.callParent(arguments);

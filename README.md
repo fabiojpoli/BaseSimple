@@ -15,6 +15,7 @@ Features CRUD:
 - Using the best possible practices recommended by Sencha;
 - Layout friendly;
 - Accompanies menu, opening the modules in tabs;
+- List with paging toolbar remote;
 - Accompanies script to build complete code for sending the output;
 - Applying use of overrides;
 - Applying usage ux;
