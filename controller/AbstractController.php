@@ -38,7 +38,7 @@ class AbstractController {
 		echo json_encode(array(
 			"rows" => $obj->data,
 			"success" => $success,
-			"msg" => $success ? 'Operation successful!' : 'Error!'
+			"msg" => $success ? 'Operação realizada com sucesso!' : 'Erro!'
 		));
 	}
 	
@@ -49,7 +49,7 @@ class AbstractController {
 		$record = json_decode(stripslashes($_POST['rows']));
 		$success = $obj->delete($record->$namePk);
 		
-		$msg = $success ? 'Record deleted successfully!' : 'Error!';
+		$msg = $success ? 'Registro excluído com sucesso!' : 'Erro!';
 		
 		echo json_encode(array(
 			"success" => $success,
