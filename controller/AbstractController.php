@@ -25,7 +25,7 @@ class AbstractController {
 		$obj = $this->objModel;
 		$namePk = $obj->primaryKey;
 		
-		$obj->data = json_decode(stripslashes($_POST['rows']));
+		$obj->data = json_decode($_POST['rows']);
 		if($obj->data->$namePk) {
 			$success = $obj->update();
 		}
@@ -46,7 +46,7 @@ class AbstractController {
 		$obj = $this->objModel;
 		$namePk = $obj->primaryKey;
 		
-		$record = json_decode(stripslashes($_POST['rows']));
+		$record = json_decode($_POST['rows']);
 		$success = $obj->delete($record->$namePk);
 		
 		$msg = $success ? 'Registro excluído com sucesso!' : 'Erro!';
