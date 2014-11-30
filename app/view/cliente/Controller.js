@@ -1,0 +1,11 @@
+/**
+ * Class to define viewController to "Cliente"
+ *
+ * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
+ * 30/11/2014
+ */
+
+Ext.define('BaseSimple.view.cliente.Controller', {
+    extend: 'Ext.ux.app.ViewController',
+    alias: 'controller.cliente'
+});

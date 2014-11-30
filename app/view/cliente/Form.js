@@ -1,8 +1,8 @@
 /**
- * Class to form of "Cliente"
+ * Class to define form to "Cliente"
  *
- * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
- * 22/08/2012
+ * Fabio Jr. Policeno <fabiojpoli@hotmail.com>
+ * 30/11/2014
  */
 
 Ext.define('BaseSimple.view.cliente.Form', {
@@ -10,7 +10,7 @@ Ext.define('BaseSimple.view.cliente.Form', {
     alias : 'widget.clienteform',
     items : [{
 		name	  : 'id',
-		fieldLabel: 'Id',
+		fieldLabel: 'ID',
 		disabled  : true
 	},{
 		name	  : 'nome',

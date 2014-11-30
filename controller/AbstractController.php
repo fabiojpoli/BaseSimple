@@ -12,7 +12,7 @@ class AbstractController {
 	
 	public function read(){
 		$obj = $this->objModel;
-		$records = $obj->select($_GET['start'], $_GET['limit']);
+		$records = $obj->select($_GET['start'], $_GET['limit'], isset($_GET['sort']) ? $_GET['sort'] : null, isset($_GET['dir']) ? $_GET['dir'] : null);
 		$total = $obj->count();
 		
 		echo json_encode(array(

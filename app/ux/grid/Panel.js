@@ -1,21 +1,26 @@
 /**
- * Class to default list
+ * Class to creation of list
  *
  * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
- * 26/11/2011
+ * 14/07/2014
  */
 
 Ext.define('Ext.ux.grid.Panel', {
 	extend: 'Ext.grid.Panel',
 	requires: ['Ext.toolbar.Paging'],
     border: false,
-    tbar  : [{
-    	text  : 'New',
-    	action: 'new'
+    listeners: {
+		selectionchange: 'onSelectionChange',
+		itemclick: 'onEdit'
+	},
+    tbar: [{
+    	text: 'New',
+    	handler: 'onNew'
     },{
-    	text	: 'Delete',
-    	action	: 'delete',
-    	disabled: true
+    	text: 'Delete',
+    	disabled: true,
+    	reference: 'delete',
+    	handler: 'onDelete'
     }],
 
 	initComponent: function() {
@@ -28,25 +33,20 @@ Ext.define('Ext.ux.grid.Panel', {
 			displayInfo: true
 		};
 
-		me.on('render', me.applyDefaultColumns, me);
-        me.getSelectionModel().on('selectionchange', me.onSelectionChange, me);
 		me.callParent(arguments);
 		me.getStore().load();
 	},
 	
-	applyDefaultColumns: function(){
+	onRender: function(){
 		var me = this,
 			i,
 			column;
 		
+		me.callParent(arguments);
+
 		for (i in me.columns){
 			column = me.columns[i];
 			column.flex = column.width || column.flex || 1;
 		}
-	},
-	
-	onSelectionChange: function(selModel, selections){
-		var me = this;
-		me.down('button[action=delete]').setDisabled(selections.length !== 1);
-    }
+	}
 });

@@ -1,19 +1,19 @@
 /**
- * Class to define model of "Produto"
+ * Class define the model "Produto"
  *
  * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
- * 22/08/2012
+ * 30/11/2014
  */
 
 Ext.define('BaseSimple.model.Produto', {
 	extend: 'Ext.data.Model',
-	proxy : {
-		type  : 'uxproxyajax',
-		module: 'produto'
-	},
 	fields: [
 		{name: 'id', type: 'int'},
 		'descricao',
 		{name: 'quantidade', type: 'int'}
-	]
+	],
+	proxy : {
+		type  : 'uxproxy',
+		module: 'produto'
+	}
 });

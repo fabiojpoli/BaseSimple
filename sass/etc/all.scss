@@ -1,52 +1,95 @@
 /* Ux Alert */
 .alert-box {
-    left: 32%;
-    position: absolute;
-    top: 2px;
-    z-index: 20000;
+	left: 50%;
+	position: absolute;
+	top: 2px;
+	margin-left:-264px;
+	z-index: 200000;
 }
 
 .alert-box table {
-    margin-top: 1px;
-    padding: 2px 3px;
-    border-radius: 4px;
-    width: 500px;
-    -moz-border-radius: 4px;
+	margin-top: 1px;
+	padding: 2px 3px;
+	border-radius: 4px;
+	width: 500px;
+	-moz-border-radius: 4px;
 }
 
 .alert-box h3 {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0px;
-    width: 450px;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0px;
+	width: 450px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .alert-box p {
-    font-size: 13px;
-    margin: 0;
+	font-size: 13px;
+	margin: 0;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.alert-box .close {
+	background-image: url(images/tab/tab-default-close.png);
+	width: 11px;
+	height: 11px;
+	cursor: pointer;
+	background-repeat: no-repeat;
+	opacity: 0.5;
+}
+
+.alert-box .icon {
+	width: 16px;
+	height: 16px;
+	background-repeat: no-repeat;
+}
+
+.alert-box .alert-success h3, .alert-box .alert-success p {
+	color: #59B53A;
 }
 
 .alert-box .alert-success {
-    background: none repeat scroll 0 0 #CDEAC8;
-    border: 1px solid #59B53A;
+	background: none repeat scroll 0 0 #CDEAC8;
+	border: 1px solid #59B53A;
+}
+
+
+.alert-box .alert-warning h3, .alert-box .alert-warning p {
+	color: #C4B700;
 }
 
 .alert-box .alert-warning {
-    background: none repeat scroll 0 0 #FBFFAC;
-    border: 1px solid #C4B700;
+	background: none repeat scroll 0 0 #FBFFAC;
+	border: 1px solid #C4B700;
+}
+
+
+.alert-box .alert-error h3, .alert-box .alert-error p {
+	color: #DC4E3D;
 }
 
 .alert-box .alert-error {
-    background: none repeat scroll 0 0 #FBB198;
-    border: 1px solid #DC4E3D;
+	background: none repeat scroll 0 0 #FBB198;
+	border: 1px solid #DC4E3D;
+}
+
+
+.alert-box .alert-information h3, .alert-box .alert-information p {
+	color: #8AAFC5;
 }
 
 .alert-box .alert-information {
-    background: none repeat scroll 0 0 #DDEEFA;
-    border: 1px solid #8AAFC5;
+	background: none repeat scroll 0 0 #DDEEFA;
+	border: 1px solid #8AAFC5;
+}
+
+
+.alert-box .alert-notification h3, .alert-box .alert-notification p {
+	color: rgb(163, 160, 160);
+	text-shadow: 0 1px 0 #fff;
 }
 
 .alert-box .alert-notification {
-    background: none repeat scroll 0 0 #F6F7FA;
-    border: 1px solid rgb(163, 160, 160);
+	background: none repeat scroll 0 0 #F6F7FA;
+	border: 1px solid rgb(163, 160, 160);
 }

@@ -1,8 +1,8 @@
 /**
- * Class to form default
+ * Class to creation of forms
  *
- * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
- * 20/01/2012
+ * Fabio Jr. Policeno <fabiojpoli@hotmail.com>
+ * 14/07/2014
  */
  
 Ext.define('Ext.ux.form.Panel', {
@@ -18,7 +18,7 @@ Ext.define('Ext.ux.form.Panel', {
     layout		 : 'anchor',
 	fieldDefaults: {
 		allowBlank: false,
-		anchor	  : '100%',
+		anchor	  : '0',
 		labelAlign: 'right',
 		labelWidth: 70,
 		msgTarget : 'side'
@@ -26,18 +26,19 @@ Ext.define('Ext.ux.form.Panel', {
 	dockedItems	 : [{
 		xtype: 'toolbar',
 		items: [{
-            text  : 'New',
-            action: 'new'
+            text   : 'New',
+            handler: 'onNew'
 		}]
 	},{
         xtype: 'toolbar',
         dock : 'bottom',
         items: ['->', {
-            text  : 'Save',
-            action: 'save'
+            text: 'Save',
+            reference: 'save',
+            handler: 'onSave'
         },{
-            text  : 'Cancel',
-            action: 'cancel'
+            text: 'Cancel',
+            handler: 'onCancel'
         }]
     }]
 });

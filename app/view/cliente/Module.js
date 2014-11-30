@@ -1,13 +1,12 @@
 /**
- * Class to panel of "Cliente"
+ * Class to define module of "Cliente"
  *
- * Fabio Jr. Policeno <fabiojpoli@hotmail.com>
- * 28/09/2012
+ * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
+ * 30/11/2014
  */
 
 Ext.define('BaseSimple.view.cliente.Module', {
-    extend	   : 'Ext.ux.panel.Module',
-    alias	   : 'widget.clientemodule',
-    module	   : 'cliente',
-    titleModule: 'Cliente'
+    extend: 'Ext.ux.panel.Module',
+    alias: 'widget.clientemodule',
+    controller: 'cliente'
 });

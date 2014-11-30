@@ -1,22 +1,22 @@
 /**
- * Class to list of "Cliente"
+ * Class to define list of "Cliente"
  *
  * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
- * 22/08/2012
+ * 30/11/2014
  */
 
 Ext.define('BaseSimple.view.cliente.List', {
-    extend : 'Ext.ux.grid.Panel',
-    alias  : 'widget.clientelist',
-    store  : 'Cliente',
-	columns: [{
-		header	 : 'Id',
+    extend: 'Ext.ux.grid.Panel',
+    alias : 'widget.clientelist',
+    store : 'Cliente',
+    columns: [{
+		text	 : 'ID',
 		dataIndex: 'id'
 	},{
-		header	 : 'Nome',
+		text	 : 'Nome',
 		dataIndex: 'nome'
 	},{
-		header	 : 'Endereco',
+		text	 : 'Endereco',
 		dataIndex: 'endereco'
 	}]
 });

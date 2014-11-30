@@ -1,8 +1,8 @@
 /**
- * Class to store of "Produto"
+ * Class to define the store "Produto"
  *
  * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
- * 22/08/2012
+ * 30/11/2014
  */
 
 Ext.define('BaseSimple.store.Produto', {

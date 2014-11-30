@@ -18,8 +18,9 @@ class AbstractModel {
 		}
 	}
 	
-	public function select($start = 0, $limit = 25) {
-		$sql = "SELECT * FROM $this->table LIMIT $start, $limit";
+	public function select($start = 0, $limit = 25, $sort = null, $dir = 'ASC') {
+		$sort = $sort ? $sort : $this->primaryKey;
+		$sql = "SELECT * FROM $this->table ORDER BY $sort $dir LIMIT $start, $limit";
 		return $this->con->execute($sql); 
 	}
 

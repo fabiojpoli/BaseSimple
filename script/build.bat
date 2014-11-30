@@ -2,7 +2,7 @@
 set ns=BaseSimple
 echo "Deleting last build..."
 cd ..
-sencha ant clean
+sencha app clean
 
 echo "Building application..."
 sencha app build

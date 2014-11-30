@@ -1,13 +1,12 @@
 /**
- * Class to panel of "Produto"
+ * Class to define module of "Produto"
  *
- * Fabio Jr. Policeno <fabiojpoli@hotmail.com>
- * 28/09/2012
+ * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
+ * 30/11/2014
  */
 
 Ext.define('BaseSimple.view.produto.Module', {
-    extend	   : 'Ext.ux.panel.Module',
-    alias	   : 'widget.produtomodule',
-    module	   : 'produto',
-    titleModule: 'Produto'
+    extend: 'Ext.ux.panel.Module',
+    alias: 'widget.produtomodule',
+    controller: 'produto'
 });

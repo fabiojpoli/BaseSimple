@@ -1,23 +1,3 @@
-/*
-This file is part of Ext JS 4.2
-
-Copyright (c) 2011-2013 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as
-published by the Free Software Foundation and appearing in the file LICENSE included in the
-packaging of this file.
-
-Please review the following information to ensure the GNU General Public License version 3.0
-requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department
-at http://www.sencha.com/contact.
-
-Build date: 2013-05-16 14:36:50 (f9be68accb407158ba2b1be2c226a6ce1f649314)
-*/
 /**
  * An internally used DataView for {@link Ext.form.field.ComboBox ComboBox}.
  */
@@ -26,16 +6,16 @@ Ext.define('Ext.view.BoundList', {
     alias: 'widget.boundlist',
     alternateClassName: 'Ext.BoundList',
     requires: ['Ext.layout.component.BoundList', 'Ext.toolbar.Paging'],
-    
-    mixins: {
-        queryable: 'Ext.Queryable'
-    },
+
+    mixins: [
+        'Ext.mixin.Queryable'
+    ],
 
     /**
      * @cfg {Number} [pageSize=0]
      * If greater than `0`, a {@link Ext.toolbar.Paging} is displayed at the bottom of the list and store
-     * queries will execute with page {@link Ext.data.Operation#start start} and
-     * {@link Ext.data.Operation#limit limit} parameters.
+     * queries will execute with page {@link Ext.data.operation.Read#start start} and
+     * {@link Ext.data.operation.Read#limit limit} parameters.
      */
     pageSize: 0,
 
@@ -56,23 +36,33 @@ Ext.define('Ext.view.BoundList', {
     listItemCls: '',
     shadow: false,
     trackOver: true,
-    refreshed: 0,
 
-    // This Component is used as a popup, not part of a complex layout. Display data immediately.
-    deferInitialRefresh: false,
+    // This flag indicates to any floaters shown above it that they should focus themselves when taking over topmost position.
+    // ZIndexManager#onCollectionSort decides whether to focus the new front component depending on whether the oldFront
+    // had focusOnToFront set. Even though this class is in fact not focusable.
+    //focusOnToFront: true,
+
+    preserveScrollOnRefresh: true,
+    enableInitialSelection: false,
 
     componentLayout: 'boundlist',
 
+    navigationModel: 'boundlist',
+
+    autoScroll: true,
+
     childEls: [
-        'listEl'
+        'listWrap', 'listEl'
     ],
 
     renderTpl: [
-        '<div id="{id}-listEl" class="{baseCls}-list-ct ', Ext.dom.Element.unselectableCls, '" style="overflow:auto"></div>',
+        '<div id="{id}-listWrap" data-ref="listWrap" role="presentation" class="{baseCls}-list-ct ', Ext.dom.Element.unselectableCls, '">',
+            '<ul id="{id}-listEl" data-ref="listEl" class="' + Ext.plainListCls + '">',
+            '</ul>',
+        '</div>',
         '{%',
-            'var me=values.$comp, pagingToolbar=me.pagingToolbar;',
+            'var pagingToolbar=values.$comp.pagingToolbar;',
             'if (pagingToolbar) {',
-                'pagingToolbar.ownerLayout = me.componentLayout;',
                 'Ext.DomHelper.generateMarkup(pagingToolbar.getRenderTree(), out);',
             '}',
         '%}',
@@ -117,6 +107,8 @@ Ext.define('Ext.view.BoundList', {
      *
      */
 
+    focusable: false,
+
     initComponent: function() {
         var me = this,
             baseCls = me.baseCls,
@@ -127,6 +119,7 @@ Ext.define('Ext.view.BoundList', {
             me.overItemCls = baseCls + '-item-over';
         }
         me.itemSelector = "." + itemCls;
+        me.scrollerSelector = 'ul.' + Ext.plainListCls;
 
         if (me.floating) {
             me.addCls(baseCls + '-floating');
@@ -136,9 +129,9 @@ Ext.define('Ext.view.BoundList', {
             // should be setting aria-posinset based on entire set of data
             // not filtered set
             me.tpl = new Ext.XTemplate(
-                '<ul class="' + Ext.plainListCls + '"><tpl for=".">',
+                '<tpl for=".">',
                     '<li role="option" unselectable="on" class="' + itemCls + '">' + me.getInnerTpl(me.displayField) + '</li>',
-                '</tpl></ul>'
+                '</tpl>'
             );
         } else if (!me.tpl.isTemplate) {
             me.tpl = new Ext.XTemplate(me.tpl);
@@ -149,18 +142,9 @@ Ext.define('Ext.view.BoundList', {
         }
 
         me.callParent();
-    },
 
-    beforeRender: function() {
-        var me = this;
-
-        me.callParent(arguments);
-
-        // If there's a Menu among our ancestors, then add the menu class.
-        // This is so that the MenuManager does not see a mousedown in this Component as a document mousedown, outside the Menu
-        if (me.up('menu')) {
-            me.addCls(Ext.baseCSSPrefix + 'menu');
-        }
+        // The dropdown is never focused. Key navigation events flow through the input field.
+        me.getSelectionModel().preventFocus = true;
     },
 
     getRefOwner: function() {
@@ -168,7 +152,13 @@ Ext.define('Ext.view.BoundList', {
     },
 
     getRefItems: function() {
-        return this.pagingToolbar ? [ this.pagingToolbar ] : [];
+        var result = this.callParent(),
+            toolbar = this.pagingToolbar;
+        
+        if (toolbar) {
+            result.push(toolbar);
+        }
+        return result;
     },
 
     createPagingToolbar: function() {
@@ -182,16 +172,8 @@ Ext.define('Ext.view.BoundList', {
         });
     },
 
-    // Do the job of a container layout at this point even though we are not a Container.
-    // TODO: Refactor as a Container.
-    finishRenderChildren: function () {
-        var toolbar = this.pagingToolbar;
-
-        this.callParent(arguments);
-
-        if (toolbar) {
-            toolbar.finishRender();
-        }
+    getNodeContainer: function() {
+        return this.listEl;
     },
 
     refresh: function(){
@@ -209,13 +191,7 @@ Ext.define('Ext.view.BoundList', {
         // The view removes the targetEl from the DOM before updating the template
         // Ensure the toolbar goes to the end
         if (rendered && toolbar && toolbar.rendered && !me.preserveScrollOnRefresh) {
-            me.el.appendChild(toolbar.el);
-        }
-
-        // IE6 strict can sometimes have repaint issues when showing
-        // the list from a remote data source
-        if (rendered && Ext.isIE6 && Ext.isStrict) {
-            me.listEl.repaint();
+            me.el.appendChild(toolbar.el, true);
         }
     },
 
@@ -228,17 +204,13 @@ Ext.define('Ext.view.BoundList', {
         }
     },
 
-    getTargetEl: function() {
-        return this.listEl || this.el;
-    },
-
     /**
      * A method that returns the inner template for displaying items in the list.
      * This method is useful to override when using a more complex display value, for example
      * inserting an icon along with the text.
      *
      * The XTemplate is created with a reference to the owning form field in the `field` property to provide access
-     * to context. For example to highlight the currently typed value, the getInnerTpl may be configured into a 
+     * to context. For example to highlight the currently typed value, the getInnerTpl may be configured into a
      * ComboBox as part of the {@link Ext.form.field.ComboBox#listConfig listConfig}:
      *
      *    listConfig: {
@@ -254,7 +226,28 @@ Ext.define('Ext.view.BoundList', {
     },
 
     onDestroy: function() {
-        Ext.destroyMembers(this, 'pagingToolbar', 'listEl');
         this.callParent();
+        Ext.destroyMembers(this, 'pagingToolbar', 'listWrap', 'listEl');
+    },
+
+    privates: {
+        getTargetEl: function() {
+            return this.listEl;
+        },
+
+        getOverflowEl: function() {
+            return this.listWrap;
+        },
+
+        // Do the job of a container layout at this point even though we are not a Container.
+        finishRenderChildren: function () {
+            var toolbar = this.pagingToolbar;
+
+            this.callParent(arguments);
+
+            if (toolbar) {
+                toolbar.finishRender();
+            }
+        }
     }
 });

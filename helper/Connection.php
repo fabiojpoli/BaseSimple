@@ -6,7 +6,7 @@
  * 03/09/2011
  */
 
-define('BD_SERVER', 'localhost');
+define('BD_SERVER', '127.0.0.1');
 define('BD_NOME', 'admin');
 define('BD_USER', 'root');
 define('BD_PWD', '');
@@ -17,19 +17,12 @@ class Connection  {
 	
 	public function __construct() 
 	{
-		$this->conn = mysql_connect(BD_SERVER, BD_USER, BD_PWD);
-		if (!$this->conn) {
-			die('Could not connect to server: ' . mysql_error());
-		}
-		
-		if (!mysql_select_db(BD_NOME, $this->conn)) {
-			die ('Unable to select database: ' . mysql_error());
-		}
+		$this->conn = mysqli_connect(BD_SERVER, BD_USER, BD_PWD, BD_NOME) or die('Error ' . mysqli_error($this->conn));
 	}
 	
 	public function close() 
 	{
-		mysql_close($this->conn);
+		mysqli_close($this->conn);
 	}
 	
 	public function execute($sql) 
@@ -37,17 +30,17 @@ class Connection  {
 		$sql = trim($sql);
 		$return = false;
 		
-		mysql_query("SET NAMES 'utf8';");
+		mysqli_query($this->conn, "SET NAMES 'utf8';");
 		
-		$result = mysql_query($sql);
+		$result = mysqli_query($this->conn, $sql);
 		if (is_bool($result))
 		{
-			$this->lastId = mysql_insert_id($this->conn); 
+			$this->lastId = mysqli_insert_id($this->conn); 
 			$return = $result;
 		}
 		else 
 		{		
-			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) 
+			while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) 
 			{
    				$return[] = $row;
 			}

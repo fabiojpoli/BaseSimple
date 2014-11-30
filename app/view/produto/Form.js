@@ -1,8 +1,8 @@
 /**
- * Class to form of "Produto"
+ * Class to define form to "Produto"
  *
  * Fabio Jr. Policeno <fabiojpoli@hotmail.com> 
- * 22/08/2012
+ * 30/11/2014
  */
 
 Ext.define('BaseSimple.view.produto.Form', {
@@ -10,7 +10,7 @@ Ext.define('BaseSimple.view.produto.Form', {
     alias : 'widget.produtoform',
     items : [{
 		name	  : 'id',
-		fieldLabel: 'Id',
+		fieldLabel: 'ID',
 		disabled  : true
 	},{
 		name	  : 'descricao',
