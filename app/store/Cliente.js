@@ -7,5 +7,6 @@
 
 Ext.define('BaseSimple.store.Cliente', {
 	extend: 'Ext.data.Store',
-    model : 'BaseSimple.model.Cliente'
+    model : 'BaseSimple.model.Cliente',
+    pageSize: 4
 });

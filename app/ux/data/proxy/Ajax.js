@@ -17,9 +17,7 @@ Ext.define('Ext.ux.data.proxy.Ajax', {
     actionDestroy: 'Controller.php?action=destroy',
     reader: {
         type: 'json',
-        rootProperty: 'rows',
-        successProperty: 'success',
-        totalProperty: 'count'
+        rootProperty: 'rows'
     },
     writer: {
         type: 'json',
